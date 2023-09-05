@@ -4,16 +4,20 @@ import logoImg from "../assets/images/logo.svg"
 import googleIconImg from "../assets/images/google-icon.svg"
 import "../styles/auth.scss"
 import { Button } from "../components/Button"
+import { firebase, auth } from '../services/firebase'
 
 export function Home () {
     const history = useNavigate()
 
+    function handleCreateRoom(){
+        const provider= new firebase.auth.GoogleAuthProvider()
 
+        auth.signInWithPopup(provider).then(result => {
+            console.log(result)
+            
+            history('/rooms/new')
+        })
 
-    function handleCreateRoom(e: React.ChangeEvent<HTMLInputElement>){
-        e.preventDefault()
-
-        history('/rooms/new')
     }
 
     return (
