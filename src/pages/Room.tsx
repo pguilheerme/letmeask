@@ -87,7 +87,7 @@ type RoomParams = {
                   <span>{user.name}</span>
                 </div>
               ) : (
-                <span>Para enviar uma pergunta, <Link to='/'></Link>.</span>
+                <span>Para enviar uma pergunta, <Link to='/'>faça seu login</Link>.</span>
               ) }
               <Button type="submit" disabled={!user}>Enviar pergunta</Button>
             </div>
