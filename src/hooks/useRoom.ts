@@ -36,7 +36,7 @@ type FirebaseQuestions = Record<string, {
     useEffect(() => {
       const roomRef = database.ref(`rooms/${roomId}`);
   
-      roomRef.on('value', room => {
+      roomRef.on('value', (room) => {
         const databaseRoom = room.val();
         const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
   
