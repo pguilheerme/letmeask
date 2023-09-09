@@ -22,7 +22,6 @@ export function AdminRoom() {
     const params = useParams<RoomParams>()
     const roomID = params?.id
     const { title, questions } = useRoom(roomID ?? '')
-    const [menuIsVisible, setMenuIsVisible] = useState(true)
 
     async function handleEndRoom() {
         if (window.confirm('Tem certeza que deseja encerrar a sala?')) {
