@@ -1,4 +1,3 @@
-import {useState} from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import logoImg from '../../assets/images/logo.svg'
 import checkImg from '../../assets/images/check.svg'
