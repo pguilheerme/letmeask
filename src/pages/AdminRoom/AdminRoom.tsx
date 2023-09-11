@@ -10,17 +10,23 @@ import { Question } from '../../components/Question'
 import { useRoom } from '../../hooks/useRoom'
 import { database } from '../../services/firebase'
 import './styled.scss'
+import { Drawer } from '@mui/material'
+import { TiThMenu } from "react-icons/ti";
+import { useState } from 'react'
 
 
 type RoomParams = {
     id: string,
 }
 
+
 export function AdminRoom() {
     const history = useNavigate()
     const params = useParams<RoomParams>()
     const roomID = params?.id
     const { title, questions } = useRoom(roomID ?? '')
+    const [open, setOpen] = useState(false);
+
 
     async function handleEndRoom() {
         if (window.confirm('Tem certeza que deseja encerrar a sala?')) {
@@ -56,26 +62,49 @@ export function AdminRoom() {
                 <header>
                     <div className="content">
                         <img src={logoImg} alt="letmeAsk" />
-                        <div>
-                            <RoomCode code={roomID ? roomID : ''} />
-                            <Button
-                                isOutlined
-                                onClick={handleEndRoom}
-                            >Encerrar sala</Button>
-                        </div>
+                        <button className='menu-icon' onClick={() => setOpen(true)}><TiThMenu id='icon' /></button>
+                        <Drawer
+                            anchor={'right'}
+                            open={open}
+                            onClose={() => setOpen(false)}
+                        >
+                            <div style={
+                                {
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    gap: '80%',
+                                    width: '100%',
+                                    height: '100%',
+                                    padding: '20px',
+                                    color: '#fff',
+                                }
+                            }>
+                                <RoomCode code={roomID ? roomID : ''} />
+                                <Button
+                                    isOutlined
+                                    onClick={handleEndRoom}
+                                >Encerrar sala
+                                </Button>
+                            </div>
+                        </Drawer>
                     </div>
                 </header>
                 <main>
                     <div className='room-title'>
-                        {questions.length > 0 ? (
-                            <>
-                                <h1>Sala {title}</h1>
 
-                                <span>{questions.length} pergunta(s)</span>
-                            </>
-                        ) :
+                        {questions.length > 0 ?
                             (
-                                <img src={emptyQuestion} alt="Ainda não há perguntas" className='empty-questions' />
+                                <>
+                                    <h1>Sala {title}</h1>
+                                    <span>{questions.length} pergunta(s)</span>
+                                </>
+                            ) :
+                            (
+                                <div className='empty-question'>
+                                    <h1>Ainda não há perguntas</h1>
+                                    <img src={emptyQuestion} alt="Ainda não há perguntas" />
+                                </div>
                             )}
                     </div>
 
@@ -84,11 +113,11 @@ export function AdminRoom() {
                         {questions.map(questions => {
                             return (
                                 <Question
-                                    key = {questions.id}
-                                    content = {questions.content}
-                                    author = {questions.author}
-                                    isAnswered = {questions.isAnswered}
-                                    isHighlighted = {questions.isHighlighted}
+                                    key={questions.id}
+                                    content={questions.content}
+                                    author={questions.author}
+                                    isAnswered={questions.isAnswered}
+                                    isHighlighted={questions.isHighlighted}
                                 >
                                     {!questions.isAnswered && (
                                         <>

@@ -3,3 +3,12 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+button {
+  background: #f8f8f8;
+}
+
+.MuiPaper-root .MuiPaper-elevation .MuiPaper-elevation16 .MuiDrawer-paper .MuiDrawer-paperAnchorRight .css-1160xiw-MuiPaper-root-MuiDrawer-paper {
+  background: red !important;
+
+}
